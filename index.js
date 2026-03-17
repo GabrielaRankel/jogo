@@ -15,8 +15,9 @@ let t1 = new Text()
 let t2 = new Text()
 let fase_txt = new Text()
 
-let motor = new Audio('./img/motor.wav')
-let batida = new Audio('./img/batida.mp3')
+let motor = new Audio('./img/musica_fundo1.wav')
+let batida = new Audio('./img/comendo2.mp3')
+
 motor.volume = 0.5
 motor.loop = true
 batida.volume = 0.5
@@ -89,11 +90,14 @@ function colisao() {
         carroInimigo.recomeca()
         carro.pontos += 5
     }
-    if (carro.colid(carroInimigo2)) {
-        batida.play()
+    // adicionei outra musica aqui
+    if (carro.colid(carroInimigo2)) { //SAPATO
         carroInimigo2.recomeca()
         carro.pontos += 5
         carro.vida += -1
+        let batida_ruim = new Audio('./img/comendo_ruim.mp3')
+        batida_ruim.play()
+
     }
     if (carro.colid(carroInimigo3)) {
         batida.play()
