@@ -6,6 +6,10 @@ class Obj{
         this.h = h
         this.a = a
     }
+// x → posição horizontal (esquerda → direita)
+// y → posição vertical (cima → baixo)
+// w → largura (width) da img
+// h → altura (height) da img
 
     des_carro(){
         let img = new Image()
@@ -55,7 +59,7 @@ class Carro extends Obj{
             return false
         }
     }
-
+//troquei os nomes 
     anim(nome){
         this.tempo +=1
         if(this.tempo > 12){
@@ -65,8 +69,8 @@ class Carro extends Obj{
         if(this.frame>4){
             this.frame=1
         }
-        //carro_001_bg
-        this.a = "./img/"+nome+this.frame+"_bg.png"
+        //gato_001_bg
+        this.a = "./img/"+nome+this.frame+".png"
     }
 
 }
@@ -81,11 +85,13 @@ class CarroInimigo extends Obj{
 
     }
 //Troquei x por y e - pra + e mudei os limites da tela
-//Adicionei o sistema de vida aqui. Agora quando o carroInimigo(comida) chegar ao chão o usuaio perde vida
+//Adicionei o sistema de vida aqui. Agora quando o carroInimigo(comida) chegar ao chão o usuaio perde pontos
     mov_car(){
         this.y += this.vel
         if(this.y >= 700){          
-            this.recomeca()         
+            this.recomeca()   
+            carro.pontos += -5
+            // carro.vida += -1      
         }
     }
 }
