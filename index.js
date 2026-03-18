@@ -45,14 +45,20 @@ document.addEventListener('keyup', (e) => {
 function game_over() {
     if (carro.vida <= 0) {
         jogar = false
-        motor.pause()
-        // música com o jogo parado
+        // musica_fundo1.pause()
+        // musica_fundo2.play()
+
+        //Troquei o fundo quando a funçaõ é chamada
+        let canvas = document.querySelector("canvas");
+        canvas.style.backgroundImage = "url('./img/fundo_game_over.png')";
     }
 }
 
 function ver_fase() { 
+    let canvas = document.querySelector("canvas");
     if (carro.pontos > 150 && fase === 1) {
         fase = 2
+        canvas.style.backgroundImage = "url('./img/fundo_02.jpg')";
         carroInimigo.vel = 4
         carroInimigo2.vel = 2
         carroInimigo3.vel = 4
@@ -61,7 +67,8 @@ function ver_fase() {
         carroInimigo6.vel = 4
         carroInimigo7.vel = 4
     } else if (carro.pontos > 300 && fase === 2) {
-        fase = 2
+        fase = 3
+        canvas.style.backgroundImage = "url('./img/fundo_03.jpg')";
         carroInimigo.vel = 5
         carroInimigo2.vel = 1
         carroInimigo3.vel = 5
@@ -71,7 +78,7 @@ function ver_fase() {
         carroInimigo7.vel = 1
     }
      else if (carro.pontos > 500 && fase === 3) {
-        fase = 3
+        fase = 4
         carroInimigo.vel = 5
         carroInimigo2.vel = 7
         carroInimigo3.vel = 2
@@ -142,8 +149,6 @@ function colisao() {
 //     }
 // }
 
-// adicionei
-
 
 function desenha() {
 
@@ -162,8 +167,8 @@ function desenha() {
         t2.des_text('Vidas: ' + carro.vida, 40, 40, 'red', '26px Arial')
         fase_txt.des_text('Fase: ' + fase, 550, 40, 'white', '26px Arial')
     }else{
-        t1.des_text('GAME OVER', 350, 350, 'yellow', '60px Arial')
-        t2.des_text('Pontuação Final: ' + carro.pontos, 480, 400, 'white', '25px Arial')
+        // t1.des_text('GAME OVER', 350, 350, 'yellow', '60px Arial')
+        t2.des_text('Pontuação Final: ' + carro.pontos, 380, 200, 'red', '30px Arial')
     }
 
 }
@@ -173,6 +178,7 @@ function atualiza() {
         carro.mov_car()
         //troquei os nomes
         carro.anim('gato_00')
+        carro.anim_game_over('lingua_0')
         carroInimigo.mov_car()
         carroInimigo2.mov_car()
         carroInimigo3.mov_car()
