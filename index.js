@@ -58,7 +58,7 @@ function ver_fase() {
     let canvas = document.querySelector("canvas");
     if (carro.pontos > 150 && fase === 1) {
         fase = 2
-        canvas.style.backgroundImage = "url('./img/fundo_02.jpg')";
+        canvas.style.backgroundImage = "url('./img/fundo_02.png')";
         carroInimigo.vel = 4
         carroInimigo2.vel = 2
         carroInimigo3.vel = 4
@@ -68,24 +68,13 @@ function ver_fase() {
         carroInimigo7.vel = 4
     } else if (carro.pontos > 300 && fase === 2) {
         fase = 3
-        canvas.style.backgroundImage = "url('./img/fundo_03.jpg')";
+        canvas.style.backgroundImage = "url('./img/fundo_03.png')";
         carroInimigo.vel = 5
-        carroInimigo2.vel = 1
+        carroInimigo2.vel = 3
         carroInimigo3.vel = 5
         carroInimigo4.vel = 2
         carroInimigo5.vel = 1
         carroInimigo6.vel = 5
-        carroInimigo7.vel = 1
-    }
-     else if (carro.pontos > 500 && fase === 3) {
-        canvas.style.backgroundImage = "url('./img/fundo_04.jpg')";
-        fase = 4
-        carroInimigo.vel = 5
-        carroInimigo2.vel = 7
-        carroInimigo3.vel = 2
-        carroInimigo4.vel = 2
-        carroInimigo5.vel = 1
-        carroInimigo6.vel = 7
         carroInimigo7.vel = 1
     }
 }

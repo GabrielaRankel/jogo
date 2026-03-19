@@ -25,12 +25,14 @@ class Obj {
 }
 
 class Carro extends Obj {
-
+   
+    perdeuPonto = false
     dir = 0
     vida = 5
     pontos = 0
     frame = 1
     tempo = 0
+
     //Troquei y por x e mudei os limites da tela
     mov_car() {
         this.x += this.dir
@@ -53,7 +55,8 @@ class Carro extends Obj {
     }
 
     point(objeto) {
-        if (objeto.y >= 800) {
+        if (objeto.y >= 800 && !objeto.perdeuPonto) {
+            objeto.perdeuPonto = true
             return true
         } else {
             return false
@@ -89,12 +92,13 @@ class Carro extends Obj {
 }
 
 class CarroInimigo extends Obj {
-
     vel = 2
     //Troquei x por y e mudei os limites do gerarAleatorio para combinar com a nova tela
     recomeca() {
         this.y = -100
         this.x = Math.floor(Math.random() * (720 - 80) + 40)
+        this.perdeuPonto = false
+
 
     }
     //Troquei x por y e - pra + e mudei os limites da tela
