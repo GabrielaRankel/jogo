@@ -27,7 +27,7 @@ class Obj {
 class Carro extends Obj {
 
     dir = 0
-    vida = 1
+    vida = 5
     pontos = 0
     frame = 1
     tempo = 0
