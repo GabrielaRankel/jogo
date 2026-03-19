@@ -1,8 +1,8 @@
 let des = document.getElementById('des').getContext('2d')
 
-let carroInimigo = new CarroInimigo(1300, 1125, 60, 60, './img/comida1.png')
-let carroInimigo2 = new CarroInimigo(1500, 725, 60, 60, './img/sapato.png')
-let carroInimigo3 = new CarroInimigo(1700, 400, 60, 60, './img/comida3.png')
+let carroInimigo = new CarroInimigo(100, -300, 60, 60, './img/comida1.png')
+let carroInimigo2 = new CarroInimigo(400, -500, 60, 60, './img/sapato.png')
+let carroInimigo3 = new CarroInimigo(500, -100, 60, 60, './img/comida3.png')
 let carroInimigo4 = new CarroInimigo(1000, 1025, 60, 60, './img/comida4.png')
 let carroInimigo5 = new CarroInimigo(1390, 225, 60, 60, './img/comida5.png')
 let carroInimigo6 = new CarroInimigo(1600, 585, 60, 60, './img/comida6.png')
@@ -78,6 +78,7 @@ function ver_fase() {
         carroInimigo7.vel = 1
     }
      else if (carro.pontos > 500 && fase === 3) {
+        canvas.style.backgroundImage = "url('./img/fundo_04.jpg')";
         fase = 4
         carroInimigo.vel = 5
         carroInimigo2.vel = 7
@@ -99,9 +100,9 @@ function colisao() {
     }
     // adicionei outra musica aqui
     if (carro.colid(carroInimigo2)) { //SAPATO
+        carro.pontos -=2
+        carro.vida -=1
         carroInimigo2.recomeca()
-        carro.pontos += 5
-        carro.vida += -1
         let batida_ruim = new Audio('./img/comendo_ruim.mp3')
         batida_ruim.play()
 
@@ -134,20 +135,14 @@ function colisao() {
     console.log('vida: ', carro.vida)
 }
 //RETIREI ESSE SISTEMA DE PONTUAÇÃO
-// function pontuacao() {
-//     if (carro.point(carroInimigo)) {
-//         carro.pontos += 5
-//         carroInimigo.recomeca()
-//     }
-//     if (carro.point(carroInimigo2)) {
-//         carro.pontos += 5
-//         carroInimigo2.recomeca()
-//     }
-//     if (carro.point(carroInimigo3)) {
-//         carro.pontos += 5
-//         carroInimigo3.recomeca()
-//     }
-// }
+function pontuacao() {
+    if(carro.point(carroInimigo)){
+        carro.pontos -= 15
+    }
+    if(carro.point(carroInimigo3)){
+        carro.pontos -= 15
+    } 
+}
 
 
 function desenha() {
@@ -187,7 +182,7 @@ function atualiza() {
         carroInimigo6.mov_car()
         carroInimigo7.mov_car()
         colisao()
-        // pontuacao()
+        pontuacao()
         ver_fase()
         game_over()
     }

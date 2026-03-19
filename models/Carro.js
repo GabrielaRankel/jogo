@@ -53,7 +53,7 @@ class Carro extends Obj {
     }
 
     point(objeto) {
-        if (objeto.x <= -100) {
+        if (objeto.y >= 800) {
             return true
         } else {
             return false
@@ -101,10 +101,8 @@ class CarroInimigo extends Obj {
     //Adicionei o sistema de vida aqui. Agora quando o carroInimigo(comida) chegar ao chão o usuaio perde pontos
     mov_car() {
         this.y += this.vel
-        if (this.y >= 700) {
-            this.recomeca()
-            carro.pontos += -5
-            // carro.vida += -1      
+        if (this.y >= 900) {
+            this.recomeca()    
         }
     }
 }
