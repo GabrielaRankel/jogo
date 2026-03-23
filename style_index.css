@@ -1,0 +1,229 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #4bff04;
+  --fg: #f5a6a0;
+  /* cor das letras dos botões */
+  --primary: #f023e5;
+  /*cor do primeiro titulo*/
+  --secondary: #ff00f2;
+  /*cor do segundo titulo e do btn-1p*/
+  --accent: #cc44aa;
+  --muted-fg: #7b7b83;
+  /* cor dos titulos, sub titulos e btn-2p*/
+  --border: #2e2e44;
+  --font-pixel: 'Press Start 2P', cursive;
+}
+
+.glow {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(120px);
+}
+body {
+  margin: 0;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #2b2b2b; /* fundo externo */
+  font-family: var(--font-pixel);
+  color: var(--fg);
+
+  overflow: hidden;
+}
+
+/* tela do jogo */
+.conteudo_principal {
+  width: 800px;
+  height: 700px;
+
+  background: black;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 3rem 1.5rem;
+  gap: 2.5rem;
+
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+
+body {
+  margin: 0;
+  background: #2b2b2b;
+  /* fundo cinza escuro igual da imagem */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100vh;
+}
+
+/* tela do jogo */
+.conteudo_principal {
+  width: 800px;
+  height: 700px;
+
+  background-image: url(./img/fundo_home.png);
+  background-size: cover; /* Cobre todo o espaço */
+  background-position: center; /* Centraliza */
+  background-repeat: no-repeat;
+  /* fundo interno do jogo */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+  /* corta qualquer coisa que sair */
+}
+
+.bloco_titulo {
+  text-align: center;
+}
+
+.primeiro_titulo {
+  font-size: clamp(1.4rem, 5vw, 2.5rem);
+  color: var(--primary);
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 20px rgba(255, 0, 157, 0.5);
+  line-height: 1.4;
+}
+
+.segundo_titulo {
+  font-size: clamp(1.8rem, 6vw, 3rem);
+  color: var(--secondary);
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 20px rgba(230, 74, 204, 0.4);
+  line-height: 1.4;
+}
+
+/* corrigido: titilo → titulo */
+.divisor_titulo {
+  margin: 1rem auto;
+  height: 2px;
+  width: 200px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+}
+
+.sub_titulo {
+  font-size: clamp(0.45rem, 1.5vw, 0.65rem);
+  color: var(--muted-fg);
+  letter-spacing: 0.2em;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.botao_menu,
+.area_personalizar,
+.area_st {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 300px;
+  padding: 1rem 1.5rem;
+  border: 2px solid;
+  border-radius: 8px;
+  background: transparent;
+  font-family: var(--font-pixel);
+  font-size: clamp(0.5rem, 1.8vw, 0.75rem);
+  letter-spacing: 0.15em;
+  color: var(--fg);
+  cursor: pointer;
+  transition: 0.2s, border-color 0.2s, transform 0.1s, color 0.2s;
+}
+
+.botao_menu:hover,
+.area_personalizar:hover,
+.area_st:hover {
+  transform: translateX(6px) scale(1.03);
+}
+
+.btn-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.btn-sobre,
+.btn-personalizar,
+.btn-comecar {
+  border-color: rgb(197, 95, 146);
+  background: rgba(255, 3, 179, 0.08);
+}
+
+.btn-sobre:hover,
+.btn-personalizar:hover,
+.btn-comecar:hover {
+  border-color: var(--primary);
+  background: rgba(204, 51, 178, 0.2);
+  color: #ffcccc;
+}
+
+.area_escolher_jogador {
+  width: 100%;
+  max-width: 300px;
+}
+
+.titulo_jogador {
+  font-size: 0.55rem;
+  color: var(--muted-fg);
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+}
+
+.opcao_jogador {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.player-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.75rem 0.5rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: rgba(42, 42, 58, 0.3);
+  font-family: var(--font-pixel);
+  font-size: 0.55rem;
+  color: var(--muted-fg);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.player-btn:hover {
+  border-color: rgba(230, 74, 217, 0.411);
+  color: var(--secondary);
+}
+
+.player-btn.active {
+  border-color: var(--secondary);
+  background: rgba(212, 74, 230, 0.15);
+  color: var(--secondary);
+}

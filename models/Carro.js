@@ -69,26 +69,25 @@ class Carro extends Obj {
             this.tempo = 0
             this.frame += 1
         }
-        if (this.frame > 4) {
+        if (this.frame > 6) {
             this.frame = 1
         }
         //gato_001_bg
         this.a = "./img/" + nome + this.frame + ".png"
     }
     anim_game_over(nome) {
-        if (carro.vida == 0) {
-            this.tempo += 1
-            if (this.tempo > 12) {
-                this.tempo = 0
-                this.frame += 1
-            }
-            if (this.frame > 4) {
-                this.frame = 1
-            }
-            //gato_001_bg
-            this.a = "./img/" + nome + this.frame + ".png"
+    if (this.vida == 0) {
+        this.tempo += 1
+        if (this.tempo > 12) {
+            this.tempo = 0
+            this.frame += 1
         }
+        if (this.frame > 4) {
+            this.frame = 1
+        }
+        this.a = "./img/" + nome + this.frame + ".png"
     }
+}
 }
 
 class CarroInimigo extends Obj {

@@ -1,21 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <script src="./models/Carro.js"defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STRAY CATS</title>
+  <link rel="preconnect" href_="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
     <script src="./index.js"defer></script>
-    <title>Game</title>
+  <link rel="stylesheet" href="./style_index.css" />
 </head>
 <body>
-    <canvas id="des" width="800" height="700">
-        <h2>Seu navegador não suporte para gráficos</h2>
-    </canvas>
+
+  <main class="conteudo_principal">
+    <header class="bloco_titulo">
+      <h1 class="primeiro_titulo">STRAY</h1>
+      <h1 class="segundo_titulo">CATS</h1>
+      <div class="divisor_titilo"></div>
+      <p class="sub_titulo">PEGUE OS ITENS • FUJA DOS PERIGOS</p>
+    </header>
+
+    <nav class="menu">
+      <button class="botao_menu btn-sobre" id="btn-sobre">
+        <span class="btn-icon">ℹ</sSpan>
+        <span>SOBRE</span>
+      </button>
+
+      <div class="area_escolher_jogador">
+        <p class="titulo_jogador">JOGADORES</p>
+        <div class="opcao_jogador">
+          <button class="player-btn active" id="btn-1p">👤 1P</button>
+          <button class="player-btn" id="btn-2p">👥 2P</button>
+        </div>
+      </div>
+
+      <button class="area_personalizar btn-personalizar" id="btn-personalizar">
+        <span class="btn-icon"></span>
+        <span>PERSONALIZAR</span>
+      </button>
+
+      <button class="area_st btn-comecar" id="btn-comecar">
+        <span class="btn-icon"></span>
+        <span>COMEÇAR</span>
+      </button>
+    </nav>
+
+  </main>
 </body>
 </html>
-
-<!-- PALAVRAS CHAVES:
- Troquei
- Adicionei
- Retirei -->
