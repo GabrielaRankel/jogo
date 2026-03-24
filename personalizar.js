@@ -18,3 +18,7 @@ document.getElementById('salvar').addEventListener('click', () => {
 // adicionei um alerta pra ficar bonitinho =)
     alert('Música salva.')
 })
+
+function voltar() {
+    window.location.href = "index.html";
+}

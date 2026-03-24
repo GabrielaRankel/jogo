@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    height: 100vh;
+    background-color: #2b2b2b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+/* área do jogo (800x700) */
+.conteiner {
+    width: 800px;
+    height: 700px;
+    background: #1a1a1a;
+    border: 3px solid #f36bff;
+    border-radius: 16px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+    background-image: url('./img/fundo_01.jpg');
+    background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* título */
+h1 {
+    color: #f36bff;
+    margin-bottom: 30px;
+}
+
+/* select */
+select {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    color: #000000;
+    background-color: #f36bff;
+    margin-bottom: 20px;
+    width: 200px;
+}
+
+/* botões */
+button {
+    width: 200px;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* salvar */
+.salvar {
+    background: #f36bff;
+}
+
+.salvar:hover {
+    background: #ff6beb;
+}
+
+/* voltar */
+.btn-voltar {
+    background: transparent;
+    border: 2px solid #f36bff;
+    color: #f36bff;
+}
+
+.btn-voltar:hover {
+    background: #f36bff;
+    color: #000;
+}
