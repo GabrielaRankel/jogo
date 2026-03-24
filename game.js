@@ -276,13 +276,15 @@ function desenha() {
         des.fillText(pausado ? '▶️' : '⏸️', btnPauseCanvas.x + 40, btnPauseCanvas.y + 32)
     } else {
         // adicionei um gato mostrandoa lingua aqui
-        gameOverAnim.des_carro()
                 if (jogadores == 1 && carro) {
         t2.des_text('Pontuação Final: ' + carro.pontos, 500, 70, 'white', '30px Arial')
+        gameOverAnim.des_carro()
+
                 }
         if (jogadores == 2 && carro2) {
             t2.des_text('Jogador 1 - Pontuação Final: ' + carro.pontos, 350, 70, 'white', '30px Arial')
             t1.des_text('Jogador 2 - Pontuação Final: ' + carro2.pontos, 350, 110, 'white', '30px Arial')
+            gameOverAnim.des_carro()
         }
     }
 }
