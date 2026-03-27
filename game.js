@@ -8,7 +8,7 @@ let carroInimigo5 = new CarroInimigo(1390, 225, 50, 50, './img/comida5.png')
 let carroInimigo6 = new CarroInimigo(1600, 585, 60, 60, './img/comida6.png')
 let carroInimigo7 = new CarroInimigo(1400, 995, 60, 60, './img/comida7.png')
 // troquei a posição do y, pro carro do usuario ficar na parte inferior da tela
-let carro = new Carro(100, 625, 80, 80, '../img/gato_001_bg.png')
+let carro = new Carro(100, 625, 80, 80, '../img/gato_001.png')
 //adicionei o segundo jogador:
 let jogadores = localStorage.getItem('players') || 1;
 let carro2 = null;
@@ -18,16 +18,23 @@ if (jogadores == 2) {
 //adicionei a animação game over aqui
 let gameOverAnim = new Carro(50, 200, 500, 500, './img/lingua_01.png')
 
-// adicionei a posiçãoe o tamanho do btn pause
+// adicionei a posiçãoe o tamanho do btn pause E DO BTN VOLTAR
 let btnPauseCanvas = {
     x: 680,
     y: 16,
     w: 100,
     h: 50
 }
+let btnVoltar = {
+    x: 500,
+    y: 560,
+    w: 200,
+    h: 60
+}
 
 let t1 = new Text()
 let t2 = new Text()
+let t3 = new Text()
 let fase_txt = new Text()
 let pausado = false
 
@@ -108,11 +115,21 @@ document.addEventListener('click', (e) => {
             motor.play()
         }
     }
+    // botão voltar
+    if (
+        (pausado || !jogar) &&
+        mouseX >= btnVoltar.x &&
+        mouseX <= btnVoltar.x + btnVoltar.w &&
+        mouseY >= btnVoltar.y &&
+        mouseY <= btnVoltar.y + btnVoltar.h
+    ) {
+        window.location.href = './index.html'
+    }
 })
 
 function game_over() {
     if (jogadores == 2 && carro2) {
-        if (carro.vida <= 0 && carro2.vida <= 0) {
+        if (carro.vida <= 0 || carro2.vida <= 0) {
             jogar = false
             motor.pause()
             //Troquei o fundo quando a funçaõ é chamada
@@ -126,6 +143,28 @@ function game_over() {
             //Troquei o fundo quando a funçaõ é chamada
             let canvas = document.querySelector("canvas");
             canvas.style.backgroundImage = "url('./img/fundo_game_over2.png')";
+        }
+    }
+}
+
+// adicionei a tela de vencedor aqui
+// lembrete: para mudar a quantidade de pontos necessarios para o jogador vencer (agr ta no 400 pontos), mude aqui e no atualiza, apara aparecer o jogador vencedor
+function vencer() {
+    if (jogadores == 2 && carro2) {
+        if (carro.pontos >= 400 || carro2.pontos >= 400) {
+            jogar = false
+            motor.pause()
+            //Troquei o fundo quando a funçaõ é chamada
+            let canvas = document.querySelector("canvas");
+            canvas.style.backgroundImage = "url('./img/tela_vencer.png')";
+        }
+    } else {
+        if (carro.pontos >= 400) {
+            jogar = false
+            motor.pause()
+            //Troquei o fundo quando a funçaõ é chamada
+            let canvas = document.querySelector("canvas");
+            canvas.style.backgroundImage = "url('./img/tela_vencer.png')";
         }
     }
 }
@@ -218,7 +257,7 @@ function colisao() {
 }
 
 function pontuacao() {
-     // se for 2 jogadores, não faz nada
+    // se for 2 jogadores, não faz nada
     if (jogadores == 2) return;
 
     if (carro.point(carroInimigo)) {
@@ -241,7 +280,7 @@ function pontuacao() {
     }
 }
 
-
+// ADICIONEI O PAUSE E O VOLTAR AQUI
 function desenha() {
 
     if (jogar) {
@@ -260,15 +299,21 @@ function desenha() {
         carroInimigo6.des_carro()
         carroInimigo7.des_carro()
         // Troquei os limites da tela, então ajustei os valores para todos aparecerem
-        t1.des_text('Pontos: ' + carro.pontos, 200, 40, 'yellow', '26px Arial')
-        t2.des_text('Vidas: ' + carro.vida, 40, 40, 'red', '26px Arial')
+        t1.des_text('Pontos: ' + carro.pontos, 200, 40, 'white', '26px Arial')
+        t2.des_text('P1 Vidas: ' + carro.vida, 40, 40, 'white', '26px Arial')
         if (jogadores == 2 && carro2) {
-            t1.des_text('P2 Pontos: ' + carro2.pontos, 200, 70, 'cyan', '20px Arial')
-            t2.des_text('P2 Vidas: ' + carro2.vida, 40, 70, 'orange', '20px Arial')
+            t1.des_text('Pontos: ' + carro2.pontos, 200, 80, 'orange', '26px Arial')
+            t2.des_text('P2 Vidas: ' + carro2.vida, 40, 80, 'orange', '26px Arial')
         }
         fase_txt.des_text('Fase: ' + fase, 550, 40, 'white', '26px Arial')
         if (pausado) {
-            t1.des_text('PAUSADO', 330, 350, 'white', '40px Arial')
+            // botão voltar
+            des.fillStyle = 'pink'
+            des.fillRect(btnVoltar.x, btnVoltar.y, btnVoltar.w, btnVoltar.h)
+
+            des.fillStyle = 'black'
+            des.font = '24px Arial'
+            des.fillText('VOLTAR', btnVoltar.x + 50, btnVoltar.y + 38)
         }
         // desenhar botão pause
         des.fillStyle = 'white'
@@ -276,16 +321,33 @@ function desenha() {
         des.fillText(pausado ? '▶️' : '⏸️', btnPauseCanvas.x + 40, btnPauseCanvas.y + 32)
     } else {
         // adicionei um gato mostrandoa lingua aqui
-                if (jogadores == 1 && carro) {
-        t2.des_text('Pontuação Final: ' + carro.pontos, 500, 70, 'white', '30px Arial')
-        gameOverAnim.des_carro()
+        if (jogadores == 1 && carro) {
+            t1.des_text('Voce Perdeu ', 500, 120, 'white', '30px Arial')
+            t2.des_text('Pontuação Final: ' + carro.pontos, 500, 70, 'white', '30px Arial')
+            gameOverAnim.des_carro()
 
-                }
+        }
         if (jogadores == 2 && carro2) {
+            if (carro.vida <= 0 || carro2.pontos >= 400) {
+                t3.des_text('Ganhador: Jogador 2', 350, 190, 'white', '30px Arial')
+            } if (carro2.vida <= 0 || carro.pontos >= 400) {
+                t3.des_text('Ganhador: Jogador 1', 350, 190, 'white', '30px Arial')
+            }
             t2.des_text('Jogador 1 - Pontuação Final: ' + carro.pontos, 350, 70, 'white', '30px Arial')
             t1.des_text('Jogador 2 - Pontuação Final: ' + carro2.pontos, 350, 110, 'white', '30px Arial')
             gameOverAnim.des_carro()
+        } else {
+            if (carro.pontos >= 400) {
+                t3.des_text('Você ganhou', 350, 190, 'white', '30px Arial')
+            }
         }
+        // botão voltar
+        des.fillStyle = 'pink'
+        des.fillRect(btnVoltar.x, btnVoltar.y, btnVoltar.w, btnVoltar.h)
+
+        des.fillStyle = 'black'
+        des.font = '24px Arial'
+        des.fillText('VOLTAR', btnVoltar.x + 50, btnVoltar.y + 38)
     }
 }
 
@@ -313,11 +375,13 @@ function atualiza() {
         colisao()
         pontuacao()
         ver_fase()
+        vencer()
         game_over()
+        //adicionei um gato mostrandoa lingua na tela game over aqui
     }
-    //adicionei um gato mostrandoa lingua na tela game over aqui
-    gameOverAnim.anim_game_over('lingua_0')
-
+    if (!jogar) {
+        gameOverAnim.anim_game_over('lingua_0')
+    }
 }
 
 function main() {

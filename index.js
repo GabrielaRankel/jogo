@@ -25,7 +25,7 @@ btn2p.addEventListener('click', () => {
 
 
 btnSobre.addEventListener('click', () => {
-  alert('STREET CATCHER\n\nPegue os itens que caem do céu e fuja dos perigos!\nUse as setas ← → para mover o personagem.');
+    window.location.href = './sobre.html';
 });
 
 btnPersonalizar.addEventListener('click', () => {

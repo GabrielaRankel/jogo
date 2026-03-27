@@ -76,7 +76,6 @@ class Carro extends Obj {
         this.a = "./img/" + nome + this.frame + ".png"
     }
     anim_game_over(nome) {
-    if (this.vida == 0) {
         this.tempo += 1
         if (this.tempo > 12) {
             this.tempo = 0
@@ -87,7 +86,6 @@ class Carro extends Obj {
         }
         this.a = "./img/" + nome + this.frame + ".png"
     }
-}
 }
 
 class CarroInimigo extends Obj {
