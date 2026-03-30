@@ -103,7 +103,7 @@ class CarroInimigo extends Obj {
     mov_car() {
         this.y += this.vel
         if (this.y >= 900) {
-            this.recomeca()    
+            this.recomeca()
         }
     }
 }

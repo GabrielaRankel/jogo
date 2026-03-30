@@ -7,6 +7,8 @@ let carroInimigo4 = new CarroInimigo(1000, 1025, 50, 50, './img/comida4.png')
 let carroInimigo5 = new CarroInimigo(1390, 225, 50, 50, './img/comida5.png')
 let carroInimigo6 = new CarroInimigo(1600, 585, 60, 60, './img/comida6.png')
 let carroInimigo7 = new CarroInimigo(1400, 995, 60, 60, './img/comida7.png')
+let carroInimigo8 = new CarroInimigo(1400, 995, 60, 60, './img/comida_vida.png')
+
 // troquei a posição do y, pro carro do usuario ficar na parte inferior da tela
 let carro = new Carro(100, 625, 80, 80, '../img/gato_001.png')
 //adicionei o segundo jogador:
@@ -17,7 +19,6 @@ if (jogadores == 2) {
 }
 //adicionei a animação game over aqui
 let gameOverAnim = new Carro(50, 200, 500, 500, './img/lingua_01.png')
-
 // adicionei a posiçãoe o tamanho do btn pause E DO BTN VOLTAR
 let btnPauseCanvas = {
     x: 680,
@@ -37,6 +38,7 @@ let t2 = new Text()
 let t3 = new Text()
 let fase_txt = new Text()
 let pausado = false
+let comecou = false
 
 // adicionei o personalizar musica
 let musicaSalva = localStorage.getItem('musica')
@@ -181,6 +183,7 @@ function ver_fase() {
         carroInimigo5.vel = 2
         carroInimigo6.vel = 4
         carroInimigo7.vel = 4
+        carroInimigo8.vel = 6
     } else if (carro.pontos > 300 && fase === 2) {
         fase = 3
         canvas.style.backgroundImage = "url('./img/fundo_03.png')";
@@ -191,6 +194,8 @@ function ver_fase() {
         carroInimigo5.vel = 1
         carroInimigo6.vel = 5
         carroInimigo7.vel = 1
+        carroInimigo8.vel = 6
+
     }
 }
 //Troquei VIDA por PONTOS, agora cada vez que colidir ele ganha pontos e não perde vidas
@@ -201,12 +206,16 @@ function colisaoJogador(jogador) {
         batida.play()
         carroInimigo.recomeca()
         jogador.pontos += 5
+        comecou = true   // aqui só começa o jogo quando o primeiro carro chegar a chão
+
     }
 
     if (jogador.colid(carroInimigo2)) {
         jogador.pontos -= 2
         jogador.vida -= 1
         carroInimigo2.recomeca()
+        comecou = true   // aqui só começa o jogo quando o primeiro carro chegar a chão
+
 
         let batida_ruim = new Audio('./img/comendo_ruim.mp3')
         batida_ruim.play()
@@ -216,31 +225,46 @@ function colisaoJogador(jogador) {
         batida.play()
         carroInimigo3.recomeca()
         jogador.pontos += 5
+        comecou = true   // aqui só começa o jogo quando o primeiro carro chegar a chão
+
     }
 
     if (jogador.colid(carroInimigo4)) {
         batida.play()
         carroInimigo4.recomeca()
         jogador.pontos += 5
+        comecou = true   // aqui só começa o jogo quando o primeiro carro chegar a chão
+
     }
 
     if (jogador.colid(carroInimigo5)) {
         batida.play()
         carroInimigo5.recomeca()
         jogador.pontos += 5
+        comecou = true   // aqui só começa o jogo quando o primeiro carro chegar a chão
+
     }
 
     if (jogador.colid(carroInimigo6)) {
         batida.play()
         carroInimigo6.recomeca()
         jogador.pontos += 5
+        comecou = true   // aqui só começa o jogo quando o primeiro carro chegar a chão
+
     }
 
     if (jogador.colid(carroInimigo7)) {
         batida.play()
         carroInimigo7.recomeca()
         jogador.pontos += 5
+        comecou = true   // aqui só começa o jogo quando o primeiro carro chegar a chão
+
     }
+    if (jogador.colid(carroInimigo8)) {
+        batida.play()
+        carroInimigo8.recomeca()
+        jogador.vida += 1
+        }
 }
 
 
@@ -257,8 +281,9 @@ function colisao() {
 }
 
 function pontuacao() {
-    // se for 2 jogadores, não faz nada
     if (jogadores == 2) return;
+
+    if (!comecou) return; // BLOQUEIA PERDER PONTO O INICIO, pois o jogo ainda não "começou" e ele só começa quando colidir pela primeira vez
 
     if (carro.point(carroInimigo)) {
         carro.pontos -= 7
@@ -277,6 +302,9 @@ function pontuacao() {
     }
     if (carro.point(carroInimigo7)) {
         carro.pontos -= 7
+    }
+    if (carro.point(carroInimigo8)) {
+        carro.pontos -= 2
     }
 }
 
@@ -298,12 +326,15 @@ function desenha() {
         carroInimigo5.des_carro()
         carroInimigo6.des_carro()
         carroInimigo7.des_carro()
+        if (carro.vida <= 1) {
+            carroInimigo8.des_carro()
+        }
         // Troquei os limites da tela, então ajustei os valores para todos aparecerem
         t1.des_text('Pontos: ' + carro.pontos, 200, 40, 'white', '26px Arial')
-        t2.des_text('P1 Vidas: ' + carro.vida, 40, 40, 'white', '26px Arial')
+        t2.des_text('J1 Vidas: ' + carro.vida, 40, 40, 'white', '26px Arial')
         if (jogadores == 2 && carro2) {
             t1.des_text('Pontos: ' + carro2.pontos, 200, 80, 'orange', '26px Arial')
-            t2.des_text('P2 Vidas: ' + carro2.vida, 40, 80, 'orange', '26px Arial')
+            t2.des_text('J2 Vidas: ' + carro2.vida, 40, 80, 'orange', '26px Arial')
         }
         fase_txt.des_text('Fase: ' + fase, 550, 40, 'white', '26px Arial')
         if (pausado) {
@@ -322,24 +353,27 @@ function desenha() {
     } else {
         // adicionei um gato mostrandoa lingua aqui
         if (jogadores == 1 && carro) {
-            t1.des_text('Voce Perdeu ', 500, 120, 'white', '30px Arial')
+
+            if (carro.vida <= 0) {
+                t1.des_text('Você Perdeu', 500, 120, 'white', '30px Arial')
+            } else if (carro.pontos >= 400) {
+                t1.des_text('Você ganhou', 350, 190, 'white', '30px Arial')
+            }
+        
             t2.des_text('Pontuação Final: ' + carro.pontos, 500, 70, 'white', '30px Arial')
             gameOverAnim.des_carro()
-
-        }
-        if (jogadores == 2 && carro2) {
+        
+        } else if (jogadores == 2 && carro2) {
+        
             if (carro.vida <= 0 || carro2.pontos >= 400) {
                 t3.des_text('Ganhador: Jogador 2', 350, 190, 'white', '30px Arial')
-            } if (carro2.vida <= 0 || carro.pontos >= 400) {
+            } else if (carro2.vida <= 0 || carro.pontos >= 400) {
                 t3.des_text('Ganhador: Jogador 1', 350, 190, 'white', '30px Arial')
             }
+        
             t2.des_text('Jogador 1 - Pontuação Final: ' + carro.pontos, 350, 70, 'white', '30px Arial')
             t1.des_text('Jogador 2 - Pontuação Final: ' + carro2.pontos, 350, 110, 'white', '30px Arial')
             gameOverAnim.des_carro()
-        } else {
-            if (carro.pontos >= 400) {
-                t3.des_text('Você ganhou', 350, 190, 'white', '30px Arial')
-            }
         }
         // botão voltar
         des.fillStyle = 'pink'
@@ -372,6 +406,9 @@ function atualiza() {
         carroInimigo5.mov_car()
         carroInimigo6.mov_car()
         carroInimigo7.mov_car()
+        if (carro.vida <= 2) {
+            carroInimigo8.mov_car()
+        }
         colisao()
         pontuacao()
         ver_fase()
