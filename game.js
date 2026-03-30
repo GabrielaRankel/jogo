@@ -7,7 +7,7 @@ let carroInimigo4 = new CarroInimigo(1000, 1025, 50, 50, './img/comida4.png')
 let carroInimigo5 = new CarroInimigo(1390, 225, 50, 50, './img/comida5.png')
 let carroInimigo6 = new CarroInimigo(1600, 585, 60, 60, './img/comida6.png')
 let carroInimigo7 = new CarroInimigo(1400, 995, 60, 60, './img/comida7.png')
-let carroInimigo8 = new CarroInimigo(1400, 995, 60, 60, './img/comida_vida.png')
+let carroInimigo8 = new CarroInimigo(1400, 900, 60, 60, './img/comida_vida.png')
 
 // troquei a posição do y, pro carro do usuario ficar na parte inferior da tela
 let carro = new Carro(100, 625, 80, 80, '../img/gato_001.png')
@@ -406,7 +406,7 @@ function atualiza() {
         carroInimigo5.mov_car()
         carroInimigo6.mov_car()
         carroInimigo7.mov_car()
-        if (carro.vida <= 2) {
+        if (carro.vida <= 1) {
             carroInimigo8.mov_car()
         }
         colisao()
