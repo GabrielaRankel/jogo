@@ -11,7 +11,7 @@ class Obj {
     // w → largura (width) da img
     // h → altura (height) da img
 
-    des_carro() {
+    des_gato() {
         let img = new Image()
         img.src = this.a
         des.drawImage(img, this.x, this.y, this.w, this.h)
@@ -24,7 +24,7 @@ class Obj {
 
 }
 
-class Carro extends Obj {
+class Gato extends Obj {
    
     perdeuPonto = false
     dir = 0
@@ -34,7 +34,7 @@ class Carro extends Obj {
     tempo = 0
 
     //Troquei y por x e mudei os limites da tela
-    mov_car() {
+    mov_gato() {
         this.x += this.dir
         if (this.x < 0) {
             this.x = 0
@@ -88,7 +88,7 @@ class Carro extends Obj {
     }
 }
 
-class CarroInimigo extends Obj {
+class Comida extends Obj {
     vel = 2
     //Troquei x por y e mudei os limites do gerarAleatorio para combinar com a nova tela
     recomeca() {
@@ -99,8 +99,8 @@ class CarroInimigo extends Obj {
 
     }
     //Troquei x por y e - pra + e mudei os limites da tela
-    //Adicionei o sistema de vida aqui. Agora quando o carroInimigo(comida) chegar ao chão o usuaio perde pontos
-    mov_car() {
+    //Adicionei o sistema de vida aqui. Agora quando a comida chegar ao chão o usuaio perde pontos
+    mov_comida() {
         this.y += this.vel
         if (this.y >= 900) {
             this.recomeca()

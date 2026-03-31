@@ -1,24 +1,29 @@
 let des = document.getElementById('des').getContext('2d')
 
-let carroInimigo = new CarroInimigo(100, -300, 60, 60, './img/comida1.png')
-let carroInimigo2 = new CarroInimigo(400, -500, 60, 60, './img/sapato.png')
-let carroInimigo3 = new CarroInimigo(500, -100, 60, 60, './img/comida3.png')
-let carroInimigo4 = new CarroInimigo(1000, 1025, 50, 50, './img/comida4.png')
-let carroInimigo5 = new CarroInimigo(1390, 225, 50, 50, './img/comida5.png')
-let carroInimigo6 = new CarroInimigo(1600, 585, 60, 60, './img/comida6.png')
-let carroInimigo7 = new CarroInimigo(1400, 995, 60, 60, './img/comida7.png')
-let carroInimigo8 = new CarroInimigo(1400, 900, 60, 60, './img/comida_vida.png')
+let comida = new Comida(100, -300, 60, 60, './img/comida1.png')
+let comida2 = new Comida(400, -500, 60, 60, './img/sapato.png')
+let comida3 = new Comida(500, -100, 60, 60, './img/comida3.png')
+let comida4 = new Comida(1000, 1025, 50, 50, './img/comida4.png')
+let comida5 = new Comida(1390, 225, 50, 50, './img/comida5.png')
+let comida6 = new Comida(1600, 585, 60, 60, './img/comida6.png')
+let comida7 = new Comida(1400, 995, 60, 60, './img/comida7.png')
+let comida8 = new Comida(1400, 900, 60, 60, './img/comida_vida.png')
 
-// troquei a posição do y, pro carro do usuario ficar na parte inferior da tela
-let carro = new Carro(100, 625, 80, 80, '../img/gato_001.png')
+// troquei a posição do y, pro gato do usuario ficar na parte inferior da tela
+let gato = new Gato(100, 625, 80, 80, '../img/gato_001.png')
+
 //adicionei o segundo jogador:
 let jogadores = localStorage.getItem('players') || 1;
-let carro2 = null;
+
+let gato2 = null;
+
 if (jogadores == 2) {
-    carro2 = new Carro(500, 625, 80, 80, '../img/gato2_01.png');
+    gato2 = new Gato(500, 625, 80, 80, '../img/gato2_01.png');
 }
+
 //adicionei a animação game over aqui
-let gameOverAnim = new Carro(50, 200, 500, 500, './img/lingua_01.png')
+let gameOverAnim = new Gato(50, 200, 500, 500, './img/lingua_01.png')
+
 // adicionei a posiçãoe o tamanho do btn pause E DO BTN VOLTAR
 let btnPauseCanvas = {
     x: 680,
@@ -42,15 +47,15 @@ let comecou = false
 
 // adicionei o personalizar musica
 let musicaSalva = localStorage.getItem('musica')
-let motor = new Audio(musicaSalva || './img/musica_fundo1.wav')
-motor.play()
+let musica_fundo = new Audio(musicaSalva || './img/musica_fundo1.wav')
+musica_fundo.play()
 
 
-let batida = new Audio('./img/comendo2.mp3')
+let colisao_som = new Audio('./img/comendo2.mp3')
 
-motor.volume = 0.5
-motor.loop = true
-batida.volume = 0.5
+musica_fundo.volume = 0.5
+musica_fundo.loop = true
+colisao_som.volume = 0.5
 
 let jogar = true
 let fase = 1
@@ -61,20 +66,20 @@ let fase = 1
 document.addEventListener('keydown', (e) => {
 
     // jogador 1
-    if (carro.vida > 0) {
+    if (gato.vida > 0) {
         if (e.key === 'ArrowLeft') {
-            carro.dir -= 10;
+            gato.dir -= 10;
         } else if (e.key === 'ArrowRight') {
-            carro.dir += 10;
+            gato.dir += 10;
         }
     }
 
     // jogador 2
-    if (jogadores == 2 && carro2 && carro2.vida > 0) {
+    if (jogadores == 2 && gato2 && gato2.vida > 0) {
         if (e.key === 'a') {
-            carro2.dir -= 10;
+            gato2.dir -= 10;
         } else if (e.key === 'd') {
-            carro2.dir += 10;
+            gato2.dir += 10;
         }
     }
 
@@ -84,13 +89,13 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('keyup', (e) => {
     // jogador 1
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-        carro.dir = 0;
+        gato.dir = 0;
     }
 
     // jogador 2
-    if (jogadores == 2 && carro2) {
+    if (jogadores == 2 && gato2) {
         if (e.key === 'a' || e.key === 'd') {
-            carro2.dir = 0;
+            gato2.dir = 0;
         }
     }
 });
@@ -112,9 +117,9 @@ document.addEventListener('click', (e) => {
         pausado = !pausado
 
         if (pausado) {
-            motor.pause()
+            musica_fundo.pause()
         } else {
-            motor.play()
+            musica_fundo.play()
         }
     }
     // botão voltar
@@ -130,18 +135,18 @@ document.addEventListener('click', (e) => {
 })
 
 function game_over() {
-    if (jogadores == 2 && carro2) {
-        if (carro.vida <= 0 || carro2.vida <= 0) {
+    if (jogadores == 2 && gato2) {
+        if (gato.vida <= 0 || gato2.vida <= 0) {
             jogar = false
-            motor.pause()
+            musica_fundo.pause()
             //Troquei o fundo quando a funçaõ é chamada
             let canvas = document.querySelector("canvas");
             canvas.style.backgroundImage = "url('./img/fundo_game_over2.png')";
         }
     } else {
-        if (carro.vida <= 0) {
+        if (gato.vida <= 0) {
             jogar = false
-            motor.pause()
+            musica_fundo.pause()
             //Troquei o fundo quando a funçaõ é chamada
             let canvas = document.querySelector("canvas");
             canvas.style.backgroundImage = "url('./img/fundo_game_over2.png')";
@@ -152,18 +157,18 @@ function game_over() {
 // adicionei a tela de vencedor aqui
 // lembrete: para mudar a quantidade de pontos necessarios para o jogador vencer (agr ta no 400 pontos), mude aqui e no atualiza, apara aparecer o jogador vencedor
 function vencer() {
-    if (jogadores == 2 && carro2) {
-        if (carro.pontos >= 400 || carro2.pontos >= 400) {
+    if (jogadores == 2 && gato2) {
+        if (gato.pontos >= 400 || gato2.pontos >= 400) {
             jogar = false
-            motor.pause()
+            musica_fundo.pause()
             //Troquei o fundo quando a funçaõ é chamada
             let canvas = document.querySelector("canvas");
             canvas.style.backgroundImage = "url('./img/tela_vencer.png')";
         }
     } else {
-        if (carro.pontos >= 400) {
+        if (gato.pontos >= 400) {
             jogar = false
-            motor.pause()
+            musica_fundo.pause()
             //Troquei o fundo quando a funçaõ é chamada
             let canvas = document.querySelector("canvas");
             canvas.style.backgroundImage = "url('./img/tela_vencer.png')";
@@ -173,96 +178,96 @@ function vencer() {
 
 function ver_fase() {
     let canvas = document.querySelector("canvas");
-    if (carro.pontos > 150 && fase === 1) {
+    if (gato.pontos > 150 && fase === 1) {
         fase = 2
         canvas.style.backgroundImage = "url('./img/fundo_02.png')";
-        carroInimigo.vel = 4
-        carroInimigo2.vel = 2
-        carroInimigo3.vel = 4
-        carroInimigo4.vel = 1
-        carroInimigo5.vel = 2
-        carroInimigo6.vel = 4
-        carroInimigo7.vel = 4
-        carroInimigo8.vel = 6
-    } else if (carro.pontos > 300 && fase === 2) {
+        comida.vel = 4
+        comida2.vel = 2
+        comida3.vel = 4
+        comida4.vel = 1
+        comida5.vel = 2
+        comida6.vel = 4
+        comida7.vel = 4
+        comida8.vel = 6
+    } else if (gato.pontos > 300 && fase === 2) {
         fase = 3
         canvas.style.backgroundImage = "url('./img/fundo_03.png')";
-        carroInimigo.vel = 5
-        carroInimigo2.vel = 3
-        carroInimigo3.vel = 5
-        carroInimigo4.vel = 2
-        carroInimigo5.vel = 1
-        carroInimigo6.vel = 5
-        carroInimigo7.vel = 1
-        carroInimigo8.vel = 6
+        comida.vel = 5
+        comida2.vel = 3
+        comida3.vel = 5
+        comida4.vel = 2
+        comida5.vel = 1
+        comida6.vel = 5
+        comida7.vel = 1
+        comida8.vel = 6
 
     }
 }
 //Troquei VIDA por PONTOS, agora cada vez que colidir ele ganha pontos e não perde vidas
-//Adicionei mais carros inimigos
-// quando o usuario colidir com o carroInimigo 2 (o sapato) ele perde uma vida
+//Adicionei mais comidas
+// quando o usuario colidir com o comida2 (o sapato) ele perde uma vida
 function colisaoJogador(jogador) {
-    if (jogador.colid(carroInimigo)) {
-        batida.play()
-        carroInimigo.recomeca()
+    if (jogador.colid(comida)) {
+        colisao_som.play()
+        comida.recomeca()
         jogador.pontos += 5
-        comecou = true   // aqui só começa o jogo quando o primeiro carro chegar a chão
+        comecou = true   // aqui só começa o jogo quando o primeira comida chegar a chão
 
     }
 
-    if (jogador.colid(carroInimigo2)) {
+    if (jogador.colid(comida2)) {
         jogador.pontos -= 2
         jogador.vida -= 1
-        carroInimigo2.recomeca()
-        comecou = true   // aqui só começa o jogo quando o primeiro carro chegar a chão
+        comida2.recomeca()
+        comecou = true   //  aqui só começa o jogo quando o primeira comida chegar a chão
 
 
         let batida_ruim = new Audio('./img/comendo_ruim.mp3')
         batida_ruim.play()
     }
 
-    if (jogador.colid(carroInimigo3)) {
-        batida.play()
-        carroInimigo3.recomeca()
+    if (jogador.colid(comida3)) {
+        colisao_som.play()
+        comida3.recomeca()
         jogador.pontos += 5
-        comecou = true   // aqui só começa o jogo quando o primeiro carro chegar a chão
+        comecou = true   //  aqui só começa o jogo quando a primeira comida chegar a chão
 
     }
 
-    if (jogador.colid(carroInimigo4)) {
-        batida.play()
-        carroInimigo4.recomeca()
+    if (jogador.colid(comida4)) {
+        colisao_som.play()
+        comida4.recomeca()
         jogador.pontos += 5
-        comecou = true   // aqui só começa o jogo quando o primeiro carro chegar a chão
+        comecou = true   // aqui só começa o jogo quando a primeira comida chegar a chão
 
     }
 
-    if (jogador.colid(carroInimigo5)) {
-        batida.play()
-        carroInimigo5.recomeca()
+    if (jogador.colid(comida5)) {
+        colisao_som.play()
+        comida5.recomeca()
         jogador.pontos += 5
-        comecou = true   // aqui só começa o jogo quando o primeiro carro chegar a chão
+        comecou = true   // aqui só começa o jogo quando a primeira comida chegar a chão
 
     }
 
-    if (jogador.colid(carroInimigo6)) {
-        batida.play()
-        carroInimigo6.recomeca()
+    if (jogador.colid(comida6)) {
+        colisao_som.play()
+        comida6.recomeca()
         jogador.pontos += 5
-        comecou = true   // aqui só começa o jogo quando o primeiro carro chegar a chão
+        comecou = true   // aqui só começa o jogo quando a primeira comida chegar a chão
 
     }
 
-    if (jogador.colid(carroInimigo7)) {
-        batida.play()
-        carroInimigo7.recomeca()
+    if (jogador.colid(comida7)) {
+        colisao_som.play()
+        comida7.recomeca()
         jogador.pontos += 5
-        comecou = true   // aqui só começa o jogo quando o primeiro carro chegar a chão
+        comecou = true   // aqui só começa o jogo quando a primeira comida chegar a chão
 
     }
-    if (jogador.colid(carroInimigo8)) {
-        batida.play()
-        carroInimigo8.recomeca()
+    if (jogador.colid(comida8)) {
+        colisao_som.play()
+        comida8.recomeca()
         jogador.vida += 1
         }
 }
@@ -270,13 +275,13 @@ function colisaoJogador(jogador) {
 
 function colisao() {
     // jogador 1
-    if (carro.vida > 0) {
-        colisaoJogador(carro)
+    if (gato.vida > 0) {
+        colisaoJogador(gato)
     }
 
     // jogador 2
-    if (jogadores == 2 && carro2 && carro2.vida > 0) {
-        colisaoJogador(carro2)
+    if (jogadores == 2 && gato2 && gato2.vida > 0) {
+        colisaoJogador(gato2)
     }
 }
 
@@ -285,26 +290,26 @@ function pontuacao() {
 
     if (!comecou) return; // BLOQUEIA PERDER PONTO O INICIO, pois o jogo ainda não "começou" e ele só começa quando colidir pela primeira vez
 
-    if (carro.point(carroInimigo)) {
-        carro.pontos -= 7
+    if (gato.point(comida)) {
+        gato.pontos -= 7
     }
-    if (carro.point(carroInimigo3)) {
-        carro.pontos -= 7
+    if (gato.point(comida3)) {
+        gato.pontos -= 7
     }
-    if (carro.point(carroInimigo4)) {
-        carro.pontos -= 7
+    if (gato.point(comida4)) {
+        gato.pontos -= 7
     }
-    if (carro.point(carroInimigo5)) {
-        carro.pontos -= 7
+    if (gato.point(comida5)) {
+        gato.pontos -= 7
     }
-    if (carro.point(carroInimigo6)) {
-        carro.pontos -= 7
+    if (gato.point(comida6)) {
+        gato.pontos -= 7
     }
-    if (carro.point(carroInimigo7)) {
-        carro.pontos -= 7
+    if (gato.point(comida7)) {
+        gato.pontos -= 7
     }
-    if (carro.point(carroInimigo8)) {
-        carro.pontos -= 2
+    if (gato.point(comida8)) {
+        gato.pontos -= 2
     }
 }
 
@@ -313,28 +318,28 @@ function desenha() {
 
     if (jogar) {
         // desenhar jogadores
-        if (carro.vida > 0) {
-            carro.des_carro();
+        if (gato.vida > 0) {
+            gato.des_gato();
         }
-        if (jogadores == 2 && carro2 && carro2.vida > 0) {
-            carro2.des_carro();
+        if (jogadores == 2 && gato2 && gato2.vida > 0) {
+            gato2.des_gato();
         }
-        carroInimigo.des_carro()
-        carroInimigo2.des_carro()
-        carroInimigo3.des_carro()
-        carroInimigo4.des_carro()
-        carroInimigo5.des_carro()
-        carroInimigo6.des_carro()
-        carroInimigo7.des_carro()
-        if (carro.vida <= 1) {
-            carroInimigo8.des_carro()
+        comida.des_gato()
+        comida2.des_gato()
+        comida3.des_gato()
+        comida4.des_gato()
+        comida5.des_gato()
+        comida6.des_gato()
+        comida7.des_gato()
+        if (gato.vida <= 1) {
+            comida8.des_gato()
         }
         // Troquei os limites da tela, então ajustei os valores para todos aparecerem
-        t1.des_text('Pontos: ' + carro.pontos, 200, 40, 'white', '26px Arial')
-        t2.des_text('J1 Vidas: ' + carro.vida, 40, 40, 'white', '26px Arial')
-        if (jogadores == 2 && carro2) {
-            t1.des_text('Pontos: ' + carro2.pontos, 200, 80, 'orange', '26px Arial')
-            t2.des_text('J2 Vidas: ' + carro2.vida, 40, 80, 'orange', '26px Arial')
+        t1.des_text('Pontos: ' + gato.pontos, 200, 40, 'white', '26px Arial')
+        t2.des_text('J1 Vidas: ' + gato.vida, 40, 40, 'white', '26px Arial')
+        if (jogadores == 2 && gato2) {
+            t1.des_text('Pontos: ' + gato2.pontos, 200, 80, 'orange', '26px Arial')
+            t2.des_text('J2 Vidas: ' + gato2.vida, 40, 80, 'orange', '26px Arial')
         }
         fase_txt.des_text('Fase: ' + fase, 550, 40, 'white', '26px Arial')
         if (pausado) {
@@ -352,28 +357,28 @@ function desenha() {
         des.fillText(pausado ? '▶️' : '⏸️', btnPauseCanvas.x + 40, btnPauseCanvas.y + 32)
     } else {
         // adicionei um gato mostrandoa lingua aqui
-        if (jogadores == 1 && carro) {
+        if (jogadores == 1 && gato) {
 
-            if (carro.vida <= 0) {
+            if (gato.vida <= 0) {
                 t1.des_text('Você Perdeu', 500, 120, 'white', '30px Arial')
-            } else if (carro.pontos >= 400) {
+            } else if (gato.pontos >= 400) {
                 t1.des_text('Você ganhou', 350, 190, 'white', '30px Arial')
             }
         
-            t2.des_text('Pontuação Final: ' + carro.pontos, 500, 70, 'white', '30px Arial')
-            gameOverAnim.des_carro()
+            t2.des_text('Pontuação Final: ' + gato.pontos, 500, 70, 'white', '30px Arial')
+            gameOverAnim.des_gato()
         
-        } else if (jogadores == 2 && carro2) {
+        } else if (jogadores == 2 && gato2) {
         
-            if (carro.vida <= 0 || carro2.pontos >= 400) {
+            if (gato.vida <= 0 || gato2.pontos >= 400) {
                 t3.des_text('Ganhador: Jogador 2', 350, 190, 'white', '30px Arial')
-            } else if (carro2.vida <= 0 || carro.pontos >= 400) {
+            } else if (gato2.vida <= 0 || gato.pontos >= 400) {
                 t3.des_text('Ganhador: Jogador 1', 350, 190, 'white', '30px Arial')
             }
         
-            t2.des_text('Jogador 1 - Pontuação Final: ' + carro.pontos, 350, 70, 'white', '30px Arial')
-            t1.des_text('Jogador 2 - Pontuação Final: ' + carro2.pontos, 350, 110, 'white', '30px Arial')
-            gameOverAnim.des_carro()
+            t2.des_text('Jogador 1 - Pontuação Final: ' + gato.pontos, 350, 70, 'white', '30px Arial')
+            t1.des_text('Jogador 2 - Pontuação Final: ' + gato2.pontos, 350, 110, 'white', '30px Arial')
+            gameOverAnim.des_gato()
         }
         // botão voltar
         des.fillStyle = 'pink'
@@ -389,25 +394,25 @@ function desenha() {
 function atualiza() {
     if (jogar && !pausado) {
         // P1
-        if (carro.vida > 0) {
-            carro.mov_car();
-            carro.anim('gato_00');
+        if (gato.vida > 0) {
+            gato.mov_gato();
+            gato.anim('gato_00');
         }
 
         // P2
-        if (jogadores == 2 && carro2 && carro2.vida > 0) {
-            carro2.mov_car();
-            carro2.anim('gato2_0');
+        if (jogadores == 2 && gato2 && gato2.vida > 0) {
+            gato2.mov_gato();
+            gato2.anim('gato2_0');
         }
-        carroInimigo.mov_car()
-        carroInimigo2.mov_car()
-        carroInimigo3.mov_car()
-        carroInimigo4.mov_car()
-        carroInimigo5.mov_car()
-        carroInimigo6.mov_car()
-        carroInimigo7.mov_car()
-        if (carro.vida <= 1) {
-            carroInimigo8.mov_car()
+        comida.mov_comida()
+        comida2.mov_comida()
+        comida3.mov_comida()
+        comida4.mov_comida()
+        comida5.mov_comida()
+        comida6.mov_comida()
+        comida7.mov_comida()
+        if (gato.vida <= 1) {
+            comida8.mov_comida()
         }
         colisao()
         pontuacao()

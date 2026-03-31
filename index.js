@@ -34,7 +34,6 @@ btnPersonalizar.addEventListener('click', () => {
 
 btnComecar.addEventListener('click', () => {
   localStorage.setItem('players', selectedPlayers); // salva
-  alert('Iniciando jogo com ' + selectedPlayers + ' jogador(es)...');
   window.location.href = './game.html';
 });
 
