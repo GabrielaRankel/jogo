@@ -411,7 +411,7 @@ function atualiza() {
         comida5.mov_comida()
         comida6.mov_comida()
         comida7.mov_comida()
-        if (gato.vida <= 1) {
+        if (gato.vida <= 1 || gato.vida <= 1) {
             comida8.mov_comida()
         }
         colisao()
