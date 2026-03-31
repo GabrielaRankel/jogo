@@ -331,7 +331,7 @@ function desenha() {
         comida5.des_gato()
         comida6.des_gato()
         comida7.des_gato()
-        if (gato.vida <= 1) {
+        if (gato.vida <= 1 || gato2.vida <= 1) {
             comida8.des_gato()
         }
         // Troquei os limites da tela, então ajustei os valores para todos aparecerem
