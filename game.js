@@ -331,7 +331,7 @@ function desenha() {
         comida5.des_gato()
         comida6.des_gato()
         comida7.des_gato()
-        if (gato.vida <= 1 || gato2.vida <= 1) {
+       if (gato.vida <= 1 || (gato2 && gato2.vida <= 1)) {
             comida8.des_gato()
         }
         // Troquei os limites da tela, então ajustei os valores para todos aparecerem
@@ -411,7 +411,7 @@ function atualiza() {
         comida5.mov_comida()
         comida6.mov_comida()
         comida7.mov_comida()
-        if (gato.vida <= 1 || gato.vida <= 1) {
+       if (gato.vida <= 1 || (gato2 && gato2.vida <= 1)){
             comida8.mov_comida()
         }
         colisao()
