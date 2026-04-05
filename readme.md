@@ -61,3 +61,43 @@ jogo/<br>
 ├── sobre.html<br>
 ├── style_game.css<br>
 └── style_index.css<br>
+
+
+## **9. Requisitos Funcionais**<br>
+**RF01:** O sistema deve permitir iniciar o jogo pelo menu principal.<br>
+**RF02:** O sistema deve permitir selecionar entre 1 ou 2 jogadores.<br>
+**RF03:** O sistema deve movimentar os personagens conforme entrada do teclado.<br>
+**RF04:** O sistema deve gerar itens caindo na tela durante a partida.<br>
+**RF05:** O sistema deve detectar colisões entre jogador e itens.<br>
+**RF06:** O sistema deve atualizar a pontuação em tempo real.<br>
+**RF07:** O sistema deve controlar vidas dos jogadores.<br>
+**RF08:** O sistema deve permitir pausar e retomar o jogo.<br>
+**RF09:** O sistema deve permitir voltar ao menu principal.<br>
+**RF10:** O sistema deve permitir personalizar a música de fundo.<br>
+**RF11:** O sistema deve identificar vitória ao atingir a pontuação necessária.<br>
+**RF12:** O sistema deve identificar derrota quando as vidas chegarem a zero.<br>
+
+---
+
+## **10. Requisitos Não Funcionais**<br>
+**RNF01:** O sistema deve ser executado em navegadores modernos (Chrome, Edge, etc.).<br>
+**RNF02:** O sistema deve ter tempo de resposta imediato aos comandos do usuário.<br>
+**RNF03:** O sistema deve possuir interface simples e intuitiva.<br>
+**RNF04:** O sistema deve funcionar sem necessidade de instalação complexa.<br>
+**RNF05:** O sistema deve manter desempenho estável durante a execução do jogo.<br>
+**RNF06:** O sistema deve permitir execução local<br>
+
+---
+
+## **11. Regras de Negócio**<br>
+**RN01:** Cada alimento coletado adiciona +5 pontos.<br>
+**RN02:** Cada sapato reduz -2 pontos e -1 vida.<br>
+**RN03:** Itens não coletados reduzem pontuação (-7 pontos).<br>
+**RN04:** A maçã aumenta a vida do jogador.<br>
+**RN05:** O jogo inicia com quantidade fixa de vidas.<br>
+**RN06:** O jogo possui 3 fases com aumento de dificuldade.<br>
+**RN07:** O jogador vence ao atingir 400 pontos.<br>
+**RN08:** O jogador perde ao ficar sem vidas.<br>
+**RN09:** No modo 2 jogadores, vence quem atingir a pontuação primeiro.<br>
+
+---
