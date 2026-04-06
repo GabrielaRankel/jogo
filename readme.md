@@ -3,6 +3,7 @@
 ## **1. Identificação do Projeto** <br>
 **Título do Projeto:** Stray Cats.<br>
 **Desenvolvedora:** Gabriela Mezzadri Rankel.<br>
+**Contato:** gmr2009br@gmail.com - (42) 8421-9818<br>
 **Product Owner:** Carlos Roberto.<br>
 
 ## **2. Visão Geral do Sistema** <br>

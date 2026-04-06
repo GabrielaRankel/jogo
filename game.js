@@ -163,7 +163,7 @@ function vencer() {
             musica_fundo.pause()
             //Troquei o fundo quando a funçaõ é chamada
             let canvas = document.querySelector("canvas");
-            canvas.style.backgroundImage = "url('./img/tela_vencer.png')";
+            canvas.style.backgroundImage = "url('./img/fundo_game_over2.png')";
         }
     } else {
         if (gato.pontos >= 400) {
@@ -171,7 +171,7 @@ function vencer() {
             musica_fundo.pause()
             //Troquei o fundo quando a funçaõ é chamada
             let canvas = document.querySelector("canvas");
-            canvas.style.backgroundImage = "url('./img/tela_vencer.png')";
+            canvas.style.backgroundImage = "url('./img/fundo_game_over2.png')";
         }
     }
 }
@@ -362,7 +362,7 @@ function desenha() {
             if (gato.vida <= 0) {
                 t1.des_text('Você Perdeu', 500, 120, 'white', '30px Arial')
             } else if (gato.pontos >= 400) {
-                t1.des_text('Você ganhou', 350, 190, 'white', '30px Arial')
+                t1.des_text('Você ganhou', 500, 120, 'white', '30px Arial')
             }
         
             t2.des_text('Pontuação Final: ' + gato.pontos, 500, 70, 'white', '30px Arial')
